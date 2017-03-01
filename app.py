@@ -43,8 +43,8 @@ def run_post():
     headers = {'Content-Type' : 'application/json'}
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-    data = r.json()
-    speech = "transfer in " + data['CRN_BAL_PTN_CTD']
+    
+    speech = r.text
 
     print("Response:")
     print(speech)

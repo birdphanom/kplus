@@ -28,8 +28,8 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
-
+    #res = processRequest(req)
+    res = run_post()
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -42,15 +42,7 @@ def run_post():
     headers = {'Content-Type' : 'application/json'}
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-    return {
-        "speech": "hi",
-        "displayText": r.text,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
-    #return json.dumps(r.json(), indent=4)
-    #return r.text
+    return r.text
 
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
@@ -77,32 +69,10 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
-        return {}
+     trn = data.get('TXN_DSC_EN')
 
-    result = query.get('results')
-    if result is None:
-        return {}
-
-    channel = result.get('channel')
-    if channel is None:
-        return {}
-
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
-
-    condition = item.get('condition')
-    if condition is None:
-        return {}
-
-    # print(json.dumps(item, indent=4))
-
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+   
+    speech = "transfer in " + trn
 
     print("Response:")
     print(speech)

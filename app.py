@@ -37,13 +37,14 @@ def webhook():
     return r
 
 def run_post():
-    url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
-    data = {'AR_ID': '0011459625'}
+    #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
+    url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
+    data = {"CARD_NO_ENCPT":"492141******6698"}
     headers = {'Content-Type' : 'application/json'}
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     data = r.json()
-    speech = "transfer in " + data['TXN_DSC_EN']
+    speech = "transfer in " + data['CRN_BAL_PTN_CTD']
 
     print("Response:")
     print(speech)

@@ -10,7 +10,6 @@ from urllib.error import HTTPError
 
 import json
 import os
-import requests
 
 from flask import Flask
 from flask import request
@@ -33,9 +32,7 @@ def webhook():
     # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
-    #r1 = run_post()
     return r
-
 
 
 def processRequest(req):

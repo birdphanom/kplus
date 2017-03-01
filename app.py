@@ -28,8 +28,8 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    #res = processRequest(req)
-    res = run_post()
+    res = processRequest(req)
+    #res = run_post()
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -69,10 +69,9 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-     trn = data.get('TXN_DSC_EN')
+    # trn = data.get('TXN_DSC_EN')
 
-   
-    speech = "transfer in " + trn
+    speech = "transfer in "
 
     print("Response:")
     print(speech)

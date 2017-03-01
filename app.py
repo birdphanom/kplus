@@ -42,7 +42,8 @@ def run_post():
     headers = {'Content-Type' : 'application/json'}
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-    speech = "transfer in " + r.text
+    data = r.json()
+    speech = "transfer in " + data['TXN_DSC_EN']
 
     print("Response:")
     print(speech)

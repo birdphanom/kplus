@@ -40,7 +40,7 @@ def run_post():
     data = {'AR_ID': '0011459625'}
     headers = {'Content-Type' : 'application/json'}
 
-    r = requests.post(url, data=json.dumps(data), headers=headers)
+    r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
 
     #return json.dumps(r.json(), indent=4)
     return r.text

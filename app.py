@@ -24,7 +24,7 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
    # r = request.post("https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0", headers={'Content-Type': 'application/json'}, data=json.dumps({"AR_ID":"0011459625"}), verify=False)
-   r = requests.post('"https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0', json={"AR_ID": "0011459625"} ,verify=False)
+   res = requests.post('"https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0', json={"AR_ID": "0011459625"} ,verify=False)
 # r = requests.api.request('post', "https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0", data={"AR_ID":"0011459625"}, json=None, verify=False)
                      # r = requests.post("https://sandbox.kasikornbank.com/webhook/balance", data = {'key': 'value'},verify=False)
     #req = request.get_json(silent=True, force=True)
@@ -34,8 +34,8 @@ def webhook():
     #res = json.dumps(data, indent=4)
     
     # print(res)
-    #r = make_response(res)
-    #r.headers['Content-Type'] = 'application/json'
+    r = make_response(res)
+   r.headers['Content-Type'] = 'application/json'
     return r
     
     

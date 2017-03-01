@@ -36,6 +36,21 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+def run_post():
+    url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
+    data = {'AR_ID': '0011459625'}
+    headers = {'Content-Type' : 'application/json'}
+
+    r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
+    return {
+        "speech": "hi",
+        "displayText": r.text,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+    #return json.dumps(r.json(), indent=4)
+    #return r.text
 
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":

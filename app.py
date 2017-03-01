@@ -46,8 +46,9 @@ def processRequest(req):
     
     result = urlopen("https://sandbox.kasikornbank.com/webhook/balance").read()
     data = json.loads(result)
-    res = makeWebhookResult(data)
-    return res
+    #res = makeWebhookResult(data)
+   # return res
+    return { "data": data }
 
 
 def makeYqlQuery(req):

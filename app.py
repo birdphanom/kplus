@@ -28,8 +28,8 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
-    #res = run_post()
+    #res = processRequest(req)
+    res = run_post()
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -42,7 +42,18 @@ def run_post():
     headers = {'Content-Type' : 'application/json'}
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-    return r.text
+    speech = "transfer in "
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
 
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":

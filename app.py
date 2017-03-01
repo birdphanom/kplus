@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    r = request.post("https://sandbox.kasikornbank.com/webhook/balance", headers={'Content-Type': 'application/json'}, data=json.dumps({'text': 'lalala'})
+    r = request.post("https://sandbox.kasikornbank.com/webhook/balance", headers={'Content-Type': 'application/json'}, data=json.dumps({'text': 'lalala'}, verify=False)
    # r = requests.post("https://sandbox.kasikornbank.com/webhook/balance", data = {'key': 'value'},verify=False)
     #req = request.get_json(silent=True, force=True)
 

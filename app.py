@@ -10,7 +10,7 @@ from urllib.error import HTTPError
 
 import json
 import os
-
+import requests
 
 from flask import Flask
 from flask import request
@@ -23,8 +23,9 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    r = request.post("https://sandbox.kasikornbank.com/webhook/balance", headers={'Content-Type': 'application/json'}, data=json.dumps({'text': 'lalala'}, verify=False)
-   # r = requests.post("https://sandbox.kasikornbank.com/webhook/balance", data = {'key': 'value'},verify=False)
+   # r = request.post("https://sandbox.kasikornbank.com/webhook/balance", headers={'Content-Type': 'application/json'}, data=json.dumps({'text': 'lalala'}, verify=False)
+    r = requests.api.request('post', "https://sandbox.kasikornbank.com/webhook/balance", data={'bar':'baz'}, json=None, verify=False)
+                     # r = requests.post("https://sandbox.kasikornbank.com/webhook/balance", data = {'key': 'value'},verify=False)
     #req = request.get_json(silent=True, force=True)
 
     #result = urlopen("https://sandbox.kasikornbank.com/webhook/balance").read()

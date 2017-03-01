@@ -80,9 +80,9 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    # trn = data.get('TXN_DSC_EN')
+    trn = data.get('TXN_DSC_EN')
 
-    speech = "transfer in "
+    speech = "transfer in " + trn
 
     print("Response:")
     print(speech)

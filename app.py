@@ -10,10 +10,12 @@ from urllib.error import HTTPError
 
 import json
 import os
+import requests
 
 from flask import Flask
 from flask import request
 from flask import make_response
+
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -21,16 +23,19 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    req = request.get_json(silent=True, force=True)
+    r = requests.post("https://sandbox.kasikornbank.com/webhook/balance", data = {'key': 'value'})
+    #req = request.get_json(silent=True, force=True)
 
-    result = urlopen("https://sandbox.kasikornbank.com/webhook/balance").read()
-    data = json.loads(result)
-    res = json.dumps(data, indent=4)
+    #result = urlopen("https://sandbox.kasikornbank.com/webhook/balance").read()
+    #data = json.loads(result)
+    #res = json.dumps(data, indent=4)
     
     # print(res)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
+    #r = make_response(res)
+    #r.headers['Content-Type'] = 'application/json'
     return r
+    
+    
 
 
 if __name__ == '__main__':

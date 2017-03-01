@@ -41,9 +41,15 @@ def run_post():
     headers = {'Content-Type' : 'application/json'}
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-
+    return {
+        "speech": "hi",
+        "displayText": r.text,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
     #return json.dumps(r.json(), indent=4)
-    return r.text
+    #return r.text
 
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":

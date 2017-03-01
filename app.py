@@ -10,7 +10,6 @@ from urllib.error import HTTPError
 
 import json
 import os
-import requests
 
 from flask import Flask
 from flask import request
@@ -22,28 +21,18 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
-    payload = {'AR_ID':'0011459625'}
+    req = request.get_json(silent=True, force=True)
 
-    #req = requests.post(url, json=payload, verify=False)
-    #req = request.get_json(silent=True, force=True)
+    print("Request:")
+    print(json.dumps(req, indent=4))
 
-    #print("Request:")
-    #print(json.dumps(req, indent=4))
-    #data = json.load(req)
-    #res = processRequest(req)
+    res = processRequest(req)
 
-    #res = json.dumps(res, indent=4)
+    res = json.dumps(res, indent=4)
     # print(res)
-    # r = make_response(res)
-   # r.headers['Content-Type'] = 'application/json'
-    return {
-        "speech": "hi",
-        "displayText": "hi",
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 
 
 def processRequest(req):

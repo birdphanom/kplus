@@ -64,7 +64,7 @@ def getPaymentDue():
     }
 
 def getCreditCardBalance():
-    url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/cardinfo/1.0.0'
+    url ='https://sandbox.api.kasikornbank.com:8243/gh/creditcard/cardinfo/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)

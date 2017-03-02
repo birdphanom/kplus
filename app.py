@@ -46,8 +46,8 @@ def run_post():
     
     
     d = json.loads(r)
-    speech = d.get('CRN_BAL_PTN_CTD')
-    #speech = r.text
+    #speech = d.get('CRN_BAL_PTN_CTD')
+    speech = r.text
     print("Response:")
     print(speech)
 

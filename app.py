@@ -54,7 +54,7 @@ def getStatementBalance():
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     d = json.loads(r.text)
-    speech = "Your credit card balance is " + "{:,.2f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " THB. The payment of your credit card is due " + d[0]["SRC_PCS_DT"]
+    speech = "Your credit card balance is " + "{:,.2f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " Baht. The payment of your credit card is due " + d[0]["SRC_PCS_DT"]
     print("Response:")
     print(speech)
     return {

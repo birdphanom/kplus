@@ -64,7 +64,7 @@ def getBalance():
 def processRequest(req):
     if req.get("result").get("action") == "getBalance":
         return getBalance()
-    else 
+    else:
         return {
         "speech": "It's seem K Plus service is not available right now",
         "displayText": "It's seem K Plus service is not available right now",

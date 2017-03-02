@@ -44,9 +44,12 @@ def run_post():
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     
-    
+    speech = ""
     d = json.loads(r.text)
-    speech = d[0]["CRN_BAL_PTN_CTD"]
+    for item in range(d):
+        speech = item["CRN_BAL_PTN_CTD"]
+    
+   # speech = d[0]["CRN_BAL_PTN_CTD"]
     
      
     print("Response:")

@@ -36,7 +36,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-def getStatementBalance():
+def run_post():
     #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
@@ -61,16 +61,44 @@ def getStatementBalance():
     }
 
 def processRequest(req):
-    if req.get("result").get("action") != "getStatementBalance":
-        return getStatementBalance()
+    if req.get("result").get("action") != "yahooWeatherForecast":
+        return {}
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    yql_query = makeYqlQuery(req)
+    if yql_query is None:
+        return {}
+    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    result = urlopen(yql_url).read()
+    data = json.loads(result)
+    res = makeWebhookResult(data)
+    return res
+
+
+def makeYqlQuery(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    city = parameters.get("geo-city")
+    if city is None:
+        return None
+
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+
+
+def makeWebhookResult(data):
+    trn = data.get('TXN_DSC_EN')
+
+    speech = "transfer in " + trn
+
+    print("Response:")
+    print(speech)
+
     return {
-        "speech": "Service not available",
-        "displayText": "Service not available",
+        "speech": speech,
+        "displayText": speech,
         # "data": data,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
     }
-
 
 
 if __name__ == '__main__':

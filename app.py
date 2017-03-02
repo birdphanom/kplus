@@ -73,32 +73,6 @@ def processRequest(req):
         "source": "apiai-KPlus-webhook-sample"
     }
 
-def makeYqlQuery(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
-
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
-
-
-def makeWebhookResult(data):
-    trn = data.get('TXN_DSC_EN')
-
-    speech = "transfer in " + trn
-
-    print("Response:")
-    print(speech)
-
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
-
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))

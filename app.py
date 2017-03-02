@@ -29,9 +29,8 @@ def webhook():
     print(json.dumps(req, indent=4))
 
     res = processRequest(req)
-   # res = run_post()
     res = json.dumps(res, indent=4)
-    # print(res)
+    print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -43,7 +42,7 @@ def getPoint():
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     d = json.loads(r.text)
-    speech = "Your credit card point is " + "{:,}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " Point as of " + d[0]["SRC_PCS_DT"]
+    speech = "Your credit card point is " + "{:,d}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " points as of " + d[0]["SRC_PCS_DT"]
     return {
         "speech": speech,
         "displayText": speech,

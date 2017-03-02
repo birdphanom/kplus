@@ -36,7 +36,30 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-def run_post():
+def getPoint():
+    #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
+    url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
+    data = {"CARD_NO_ENCPT":"492141******6698"}
+    headers = {'Content-Type' : 'application/json'}
+
+    r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
+    
+    
+    d = json.loads(r.text)
+    speech = "Your credit card point is " + "{:,.1f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " Point as of " + d[0]["SRC_PCS_DT"]
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+
+def getBalance():
     #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
@@ -60,36 +83,8 @@ def run_post():
     }
 
 def processRequest(req):
-    return run_post()
+    return getPoint()
    
-
-
-
-def makeYqlQuery(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
-
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
-
-
-def makeWebhookResult(data):
-    trn = data.get('TXN_DSC_EN')
-
-    speech = "transfer in " + trn
-
-    print("Response:")
-    print(speech)
-
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
 
 
 if __name__ == '__main__':

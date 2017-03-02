@@ -28,8 +28,8 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
-    #res = run_post()
+    #res = processRequest(req)
+    res = run_post()
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -56,8 +56,8 @@ def run_post():
     print(speech)
 
     return {
-        "speech": speech,
-        "displayText": speech,
+        "speech": "Your credit card balance is" + speech,
+        "displayText": "Your credit card balance is" +speech,
         # "data": data,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"

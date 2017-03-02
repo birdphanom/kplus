@@ -36,7 +36,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-def getPoint():
+def run_post():
     #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
@@ -61,9 +61,9 @@ def getPoint():
 
 def processRequest(req):
     if req.get("result").get("action") == "getStatementBalance":
-        return getStatementBalance()
+        return run_post()
     else if req.get("result").get("action") == "getPoint":
-        return getPoint()
+        return run_post()
     else:
         return {
         "speech": "It's seem K Plus service is not available right now",

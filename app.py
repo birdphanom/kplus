@@ -45,8 +45,9 @@ def run_post():
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     
     
-    d = json.loads(r)
-    speech = d.get('TXN_DSC_EN')
+    #d = json.loads(r)
+    #speech = d.get('TXN_DSC_EN')
+    speech = r.text
     print("Response:")
     print(speech)
 

@@ -28,8 +28,8 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
-    
+    #res = processRequest(req)
+    res = run_post()
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -46,8 +46,7 @@ def getStatementBalance():
     
     
     d = json.loads(r.text)
-    
-    speech =  "Your credit card balance is " + "{:,.2f}".format(d[0]["BAL"] ) + " BAHT, The payment of your credit card is due " + d[0]["DUE_DT"]
+    speech = d[0]["CRN_BAL_PTN_CTD"]
     
      
     print("Response:")
@@ -58,21 +57,20 @@ def getStatementBalance():
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "apiai-KPlus-webhook-sample"
+        "source": "apiai-weather-webhook-sample"
     }
-
 
 def processRequest(req):
-    if req.get("result").get("action") == "getStatementBalance":
+    if req.get("result").get("action") != "getStatementBalance":
         return getStatementBalance()
-    else:
-        return {
-        "speech": "It's seem K Plus service is not available right now",
-        "displayText": "It's seem K Plus service is not available right now",
+    return {
+        "speech": "Service not available",
+        "displayText": "Service not available",
         # "data": data,
         # "contextOut": [],
-        "source": "apiai-KPlus-webhook-sample"
+        "source": "apiai-weather-webhook-sample"
     }
+
 
 
 if __name__ == '__main__':

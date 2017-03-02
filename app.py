@@ -54,7 +54,7 @@ def getPaymentDue():
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     d = json.loads(r.text)
-    speech = "The payment of your credit card is due " + d[0]["DUE_DT"] + " Your credit card statement balance is " + "{:,.2f}".format(d[0]["BAL"] ) + " Baht. "
+    speech = "The payment of your credit card is due " + d[0]["DUE_DT"] + ". Your credit card statement balance is " + "{:,.2f}".format(d[0]["BAL"] ) + " Baht. "
     print("Response:")
     print(speech)
     return {
@@ -69,7 +69,7 @@ def getCreditCardBalance():
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     d = json.loads(r.text)
-    speech = "Your current balance is " + "{:,.2f}".format(d[0]["BRN_BAL"] ) + " Baht. " + "Your credit card limit is " + "{:,.2f}".format(d[0]["CR_LMT_AMT"] ) + " Baht."
+    speech = "Your current balance is " + "{:,.2f}".format(d[0]["CRN_BAL"] ) + " Baht. " + "Your credit card limit is " + "{:,.2f}".format(d[0]["CR_LMT_AMT"] ) + " Baht."
     print("Response:")
     print(speech)
     return {

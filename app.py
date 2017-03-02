@@ -69,7 +69,7 @@ def getCreditCardBalance():
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     d = json.loads(r.text)
-    speech = "Your current credit card balance is " + "{:,.2f}".format(d[0]["CRN_BAL"] ) + " Baht. "
+    speech = "Your current credit card balance is "
     print("Response:")
     print(speech)
     return {

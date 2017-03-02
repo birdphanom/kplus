@@ -83,10 +83,20 @@ def getBalance():
     }
 
 def processRequest(req):
-    return getPoint()
-   
-
-
+    #if req.get("result").get("action") == "getStatementBalance":
+    #    return getStatementBalance()
+    #else 
+    if req.get("result").get("action") == "getPoint":
+        return getPoint()
+    else:
+        return {
+        "speech": "It's seem K Plus service is not available right now",
+        "displayText": "It's seem K Plus service is not available right now",
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-KPlus-webhook-sample"
+        }
+       
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 

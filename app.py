@@ -60,18 +60,8 @@ def run_post():
     }
 
 def processRequest(req):
-    if req.get("result").get("action") == "getStatementBalance":
-        return run_post()
-    else if req.get("result").get("action") == "getPoint":
-        return run_post()
-    else:
-        return {
-        "speech": "It's seem K Plus service is not available right now",
-        "displayText": "It's seem K Plus service is not available right now",
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-KPlus-webhook-sample"
-    }
+    return run_post()
+   
 
 
 

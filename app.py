@@ -47,7 +47,7 @@ def run_post():
     
     d = json.loads(r.text)
     
-    speech =  "Your credit card balance is " + "{:.2f}".format(d[0]["CRN_BAL_PTN_CTD"] + " BAHT") 
+    speech =  "Your credit card balance is " + "{:.2f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " BAHT"
     
      
     print("Response:")

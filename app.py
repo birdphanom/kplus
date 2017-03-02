@@ -49,7 +49,7 @@ def getPoint():
     }
 
 def getStatementBalance():
-    url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/header/1.0.0'
+    url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/statement/header/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)

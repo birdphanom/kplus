@@ -83,10 +83,8 @@ def getBalance():
     }
 
 def processRequest(req):
-    if req.get("result").get("action") == "getBalance":
+    if req.get("result").get("action") == "getPoint":
         return getBalance()
-    else if req.get("result").get("action") == "getPoint":
-        return getPoint()
     else:
         return {
         "speech": "It's seem K Plus service is not available right now",

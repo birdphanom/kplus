@@ -41,16 +41,9 @@ def getPoint():
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
     headers = {'Content-Type' : 'application/json'}
-
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-    
-    
     d = json.loads(r.text)
-    speech = "Your credit card point is " + "{:,.1f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " Point as of " + d[0]["SRC_PCS_DT"]
-
-    print("Response:")
-    print(speech)
-
+    speech = "Your credit card point is " + "{:,}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " Point as of " + d[0]["SRC_PCS_DT"]
     return {
         "speech": speech,
         "displayText": speech,

@@ -36,7 +36,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-def run_post():
+def getPoint():
     #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}

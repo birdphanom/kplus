@@ -48,7 +48,7 @@ def getPoint():
         "source": "apiai-kplus-webhook-sample"
     }
 
-def getBalance():
+def getStatementBalance():
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
     headers = {'Content-Type' : 'application/json'}

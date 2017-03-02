@@ -83,7 +83,7 @@ def getBalance():
     }
 
 def processRequest(req):
-    if req.get("result").get("action") == "getStatementBalance":
+    if req.get("result").get("action") == "getBalance":
         return getBalance()
     else if req.get("result").get("action") == "getPoint":
         return getPoint()

@@ -24,7 +24,6 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-
     print("Request:")
     print(json.dumps(req, indent=4))
 
@@ -46,45 +45,33 @@ def getPoint():
     return {
         "speech": speech,
         "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+        "source": "apiai-kplus-webhook-sample"
     }
 
 def getBalance():
-    #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
     headers = {'Content-Type' : 'application/json'}
-
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-    
-    
     d = json.loads(r.text)
-    speech = "Your credit card balance is " + "{:,.2f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " BAHT. The payment of your credit card is due " + d[0]["SRC_PCS_DT"]
-
+    speech = "Your credit card balance is " + "{:,.2f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " THB. The payment of your credit card is due " + d[0]["SRC_PCS_DT"]
     print("Response:")
     print(speech)
-
     return {
         "speech": speech,
         "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+        "source": "apiai-kplus-webhook-sample"
     }
 
 def processRequest(req):
-    if req.get("result").get("action") == "getBalance":
-        return getBalance()
+    if req.get("result").get("action") == "getStatementBalance":
+        return getStatementBalance()
     elif req.get("result").get("action") == "getPoint":
         return getPoint()
     else:
         return {
         "speech": "It's seem K Plus service is not available right now",
         "displayText": "It's seem K Plus service is not available right now",
-        # "data": data,
-        # "contextOut": [],
         "source": "apiai-KPlus-webhook-sample"
         }
        

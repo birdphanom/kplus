@@ -46,10 +46,10 @@ def run_post():
     
     speech = ""
     d = json.loads(r.text)
-    for item in d:
-        speech = item["CRN_BAL_PTN_CTD"]
+   # for item in d:
+   #     speech = item["CRN_BAL_PTN_CTD"]
     
-   # speech = d[0]["CRN_BAL_PTN_CTD"]
+    speech = d[0]["CRN_BAL_PTN_CTD"]
     
      
     print("Response:")

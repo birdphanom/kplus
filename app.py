@@ -48,13 +48,13 @@ def getPoint():
         "source": "apiai-kplus-webhook-sample"
     }
 
-def getStatementBalance():
+def getPaymentDue():
     url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/statement/header/1.0.0'
     data = {"CARD_NO_ENCPT":"492141******6698"}
     headers = {'Content-Type' : 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     d = json.loads(r.text)
-    speech = "Your credit card balance is " + "{:,.2f}".format(d[0]["BAL"] ) + " Baht. The payment of your credit card is due " + d[0]["DUE_DT"]
+    speech = "The payment of your credit card is due " + d[0]["DUE_DT"] + " Your credit card statement balance is " + "{:,.2f}".format(d[0]["BAL"] ) + " Baht. "
     print("Response:")
     print(speech)
     return {
@@ -63,11 +63,27 @@ def getStatementBalance():
         "source": "apiai-kplus-webhook-sample"
     }
 
+def getCreditCardBalance():
+    url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/cardinfo/1.0.0'
+    data = {"CARD_NO_ENCPT":"492141******6698"}
+    headers = {'Content-Type' : 'application/json'}
+    r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
+    d = json.loads(r.text)
+    speech = "Your current balance is " + "{:,.2f}".format(d[0]["BRN_BAL"] ) + " Baht. " + "Your credit card limit is " + "{:,.2f}".format(d[0]["CR_LMT_AMT"] ) + " Baht."
+    print("Response:")
+    print(speech)
+    return {
+        "speech": speech,
+        "displayText": speech,
+        "source": "apiai-kplus-webhook-sample"
+    }
 def processRequest(req):
-    if req.get("result").get("action") == "getStatementBalance":
-        return getStatementBalance()
+    if req.get("result").get("action") == "getPaymentDue":
+        return getPaymentDue()
     elif req.get("result").get("action") == "getPoint":
         return getPoint()
+    elif req.get("result").get("action") == "getCreditCardBalance":
+        return getCreditCardBalance()
     else:
         return {
         "speech": "It's seem K Plus service is not available right now",

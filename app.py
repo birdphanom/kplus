@@ -60,36 +60,11 @@ def getStatementBalance():
         # "contextOut": [],
         "source": "apiai-KPlus-webhook-sample"
     }
-def getPoint():
-    #url = 'https://sandbox.api.kasikornbank.com:8243/gh/deposit/sight/transactions/1.0.0'
-    url = 'https://sandbox.api.kasikornbank.com:8243/gh/creditcard/point/1.0.0'
-    data = {"CARD_NO_ENCPT":"492141******6698"}
-    headers = {'Content-Type' : 'application/json'}
 
-    r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
-    
-    
-    d = json.loads(r.text)
-    
-    speech =  "Your credit card point is " + "{:,.1f}".format(d[0]["CRN_BAL_PTN_CTD"] ) + " Point as of " + d[0]["SRC_PCS_DT"]
-    
-     
-    print("Response:")
-    print(speech)
-
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-KPlus-webhook-sample"
-    }
 
 def processRequest(req):
     if req.get("result").get("action") == "getStatementBalance":
         return getStatementBalance()
-    else if req.get("result").get("action") == "getPoint":
-        return getPoint()
     else:
         return {
         "speech": "It's seem K Plus service is not available right now",

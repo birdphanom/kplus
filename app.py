@@ -44,11 +44,8 @@ def run_post():
 
     r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
     
-    speech = ""
-    d = json.loads(r.text)
-   # for item in d:
-   #     speech = item["CRN_BAL_PTN_CTD"]
     
+    d = json.loads(r.text)
     speech = d[0]["CRN_BAL_PTN_CTD"]
     
      
@@ -56,24 +53,27 @@ def run_post():
     print(speech)
 
     return {
-        "speech": "Your credit card balance is" + speech,
-        "displayText": "Your credit card balance is" +speech,
+        "speech": speech,
+        "displayText": speech,
         # "data": data,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
     }
 
 def processRequest(req):
-    if req.get("result").get("action") == "getBalance":
-        return run_post()
-    return {
-        "speech": "It's seem service is not available right now",
-        "displayText": "It's seem service is not available right now",
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
-  
+    if req.get("result").get("action") != "yahooWeatherForecast":
+        return {}
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    yql_query = makeYqlQuery(req)
+    if yql_query is None:
+        return {}
+    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    result = urlopen(yql_url).read()
+    data = json.loads(result)
+    res = makeWebhookResult(data)
+    return res
+
+
 def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")

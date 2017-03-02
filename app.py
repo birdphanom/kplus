@@ -46,7 +46,7 @@ def run_post():
     
     
     d = json.loads(r)
-    speech = d.get('TXN_DSC_EN')
+    speech = d['TXN_DSC_EN']
     print("Response:")
     print(speech)
 

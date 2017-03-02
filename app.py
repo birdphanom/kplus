@@ -28,8 +28,8 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    #res = processRequest(req)
-    res = run_post()
+    res = processRequest(req)
+    
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -61,8 +61,8 @@ def run_post():
     }
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
+    if req.get("result").get("action") == "getBalance":
+        return run_post()
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:

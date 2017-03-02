@@ -28,8 +28,8 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    #res = processRequest(req)
-    res = run_post()
+    res = processRequest(req)
+    #res = run_post()
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -61,19 +61,16 @@ def run_post():
     }
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    result = urlopen(yql_url).read()
-    data = json.loads(result)
-    res = makeWebhookResult(data)
-    return res
-
-
+    if req.get("result").get("action") == "getBalance":
+        return run_post()
+    return {
+        "speech": "It's seem service is not available right now",
+        "displayText": "It's seem service is not available right now",
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+  
 def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
